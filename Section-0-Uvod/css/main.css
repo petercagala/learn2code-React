@@ -151,6 +151,13 @@ li:nth-child(5n+5) article { background: #0f1a5f; }
 
 }
 
+.dude {
+  display:grid;
+  grid-template-columns:1fr 20fr 1fr;
+  justify-items:start;
+  align-items:center
+ }
+
 
 .dude-enter-active, .dude-leave-active {
   transition: all .20s;

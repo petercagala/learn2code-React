@@ -18,13 +18,15 @@
         <!-- Bootstrap CSS -->
          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="./css/bootstrap.min.css">
-        <link rel="stylesheet" href="./css/main.css">
+        <!-- <link rel="stylesheet" href="./css/main.css"> -->
+        <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
             <div id="app">
                 My friend <strong>{{dude}}</strong>
 
                 <ul>
+                   
                     <li class="dude" v-for="dudeItem in dudeList">
                         <a class="ctrl" @click.prevent="removeDudeItem(dudeItem)">x</a>
                         <article :class="{faded: dudeItem.cool < 10, gold: dudeItem.cool > 30}">
@@ -38,13 +40,16 @@
                     
                 </ul>
 
+
                 <p>
                     {{counter}}
                 </p>
                 
                 <!-- @keydown.enter bude platit pre ktorykolvek input -->
                 <form class="add-new" @keydown.enter="addDude">
-                    <input type="text" v-model="newName">
+                    <!-- autofocus: kurzor bude vzdy blikat po refreshi stranky tu 
+                    sucasne si nastavim referenciu na tento atribut ref="thisFocus"-->
+                    <input type="text" v-model="newName" ref="thisFocus" autofocus>
                     <input type="text" v-model="newDescription">
                     <input type="text" v-model="newCool">
 
@@ -85,6 +90,11 @@
                         },
                         methods: {
                             addDude() {
+                                // Ak cokolvek z inputov nieje zadane, teda je hodnoty false, nevykonaj dalsie prikazy
+                                if(!this.newName || !this.newDescription || !this.newCool) {
+                                    return ;
+                                }
+
                                 let dudeElement = {
                                     name: this.newName,
                                     description: this.newDescription,
@@ -96,6 +106,9 @@
                                 this.newName = '';
                                 this.newDescription = '';
                                 this.newCool = '';
+
+                                // Vsetky atributy s ref [refs], ktore maju nastavenu referenciu na thisFocus, focusnite sa focus()
+                                this.$refs.thisFocus.focus();
                             },
                             hasLessWords(dudeItem) {
                                 return (dudeItem.split(' ').length < 3);
