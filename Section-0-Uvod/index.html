@@ -71,16 +71,6 @@
                         data: {
                             dude: "Jake the dog",
                             dudeList: [
-                                {
-                                    name: 'Peter',
-                                    description: 'Programator',
-                                    cool: 12
-                                },
-                                {
-                                    name: 'Katka',
-                                    description: 'Mzdarka',
-                                    cool: 16
-                                }
                             ],
                             counter: 0,
                             newDude: '',
@@ -116,6 +106,14 @@
                             removeDudeItem(dudeItem) {
                                 this.dudeList = this.dudeList.filter(dude => dude !== dudeItem);
                             }
+                        },
+                        // created() musi byt ten nazov metody takyto
+                        // Na vytvorenie stavnateho jsonu na servery pouzi http://myjson.com/  a na format vlkladaneho jsonu 
+                        // https://jsonformatter.curiousconcept.com/
+                        created() {
+                            fetch('https://api.myjson.com/bins/rj5s0')
+                            .then(res => res.json())
+                            .then(json => this.dudeList = json)
                         }
                     }
                 );
