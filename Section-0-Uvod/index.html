@@ -25,32 +25,37 @@
                 My friend <strong>{{dude}}</strong>
 
                 <ul>
-                    <li :class="{strong: !hasLessWords(dudeItem)}" 
-                    @click="counter++" 
-                    v-for='dudeItem in dudeList'>
-                        {{dudeItem}}
-                        
-                        <small v-if="hasLessWords(dudeItem)">
-                            <em>
-                                 -> lol, short name
-                            </em>
-                        </small>
+                    <li class="dude" v-for="dudeItem in dudeList">
+                        <a class="ctrl" @click.prevent="removeDudeItem(dudeItem)">x</a>
+                        <article :class="{faded: dudeItem.cool < 10, gold: dudeItem.cool > 30}">
+                            {{dudeItem.name}}
+                            <span>{{dudeItem.description}}</span>
+                        </article>
 
+                        <input type="number" class="ctrl" v-model.number="dudeItem.cool">
 
                     </li>
+                    
                 </ul>
 
                 <p>
                     {{counter}}
                 </p>
-
-                <form class="add-new" @submit.prevent="addDude">
-                    <input type="text" v-model="newDude">
+                
+                <!-- @keydown.enter bude platit pre ktorykolvek input -->
+                <form class="add-new" @keydown.enter="addDude">
+                    <input type="text" v-model="newName">
+                    <input type="text" v-model="newDescription">
+                    <input type="text" v-model="newCool">
 
                 </form>
 
                 <p class="preview">
-                    {{newDude}}
+                    {{newName}}
+                    <br/>
+                    {{newDescription}}
+                    <br/>
+                    {{newCool}}
                 </p>
             </div>
 
@@ -61,19 +66,42 @@
                         data: {
                             dude: "Jake the dog",
                             dudeList: [
-                                'Finn the Human',
-                                'Jake the dog'
+                                {
+                                    name: 'Peter',
+                                    description: 'Programator',
+                                    cool: 12
+                                },
+                                {
+                                    name: 'Katka',
+                                    description: 'Mzdarka',
+                                    cool: 16
+                                }
                             ],
                             counter: 0,
-                            newDude: ''
+                            newDude: '',
+                            newName: '',
+                            newDescription: '',
+                            newCool: ''
                         },
                         methods: {
                             addDude() {
-                                this.dudeList.push(this.newDude);
-                                this.newDude = '';
+                                let dudeElement = {
+                                    name: this.newName,
+                                    description: this.newDescription,
+                                    cool: this.newCool
+                                };
+
+                                this.dudeList.push(dudeElement);
+
+                                this.newName = '';
+                                this.newDescription = '';
+                                this.newCool = '';
                             },
                             hasLessWords(dudeItem) {
                                 return (dudeItem.split(' ').length < 3);
+                            },
+                            removeDudeItem(dudeItem) {
+                                this.dudeList = this.dudeList.filter(dude => dude !== dudeItem);
                             }
                         }
                     }
