@@ -25,7 +25,19 @@
                 My friend <strong>{{dude}}</strong>
 
                 <ul>
-                    <li @click="counter++" v-for='dudeItem in dudeList'>{{dudeItem}}</li>
+                    <li :class="{strong: !hasLessWords(dudeItem)}" 
+                    @click="counter++" 
+                    v-for='dudeItem in dudeList'>
+                        {{dudeItem}}
+                        
+                        <small v-if="hasLessWords(dudeItem)">
+                            <em>
+                                 -> lol, short name
+                            </em>
+                        </small>
+
+
+                    </li>
                 </ul>
 
                 <p>
@@ -59,6 +71,9 @@
                             addDude() {
                                 this.dudeList.push(this.newDude);
                                 this.newDude = '';
+                            },
+                            hasLessWords(dudeItem) {
+                                return (dudeItem.split(' ').length < 3);
                             }
                         }
                     }
