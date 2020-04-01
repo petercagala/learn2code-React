@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <!--    dostanes zo stranky https://vuejs.org/v2/guide/-->
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <!-- Bootstrap CSS -->
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/main.css">
+    </head>
+    <body>
+            <div id="app">
+                My friend <strong>{{dude}}</strong>
+
+                <ul>
+                    <li @click="counter++" v-for='dudeItem in dudeList'>{{dudeItem}}</li>
+                </ul>
+
+                <p>
+                    {{counter}}
+                </p>
+
+                <form class="add-new" @submit.prevent="addDude">
+                    <input type="text" v-model="newDude">
+
+                </form>
+
+                <p class="preview">
+                    {{newDude}}
+                </p>
+            </div>
+
+            <script>
+                const app = new Vue(
+                    {
+                        el: '#app',
+                        data: {
+                            dude: "Jake the dog",
+                            dudeList: [
+                                'Finn the Human',
+                                'Jake the dog'
+                            ],
+                            counter: 0,
+                            newDude: ''
+                        },
+                        methods: {
+                            addDude() {
+                                this.dudeList.push(this.newDude);
+                                this.newDude = '';
+                            }
+                        }
+                    }
+                );
+            </script>
+    </body>
+</html>
