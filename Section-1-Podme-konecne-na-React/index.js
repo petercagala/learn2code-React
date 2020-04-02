@@ -57,18 +57,31 @@ class App extends React.Component {
     }
 
      handleSubmit = event => {
-        //  event.preventDefault();
+         event.preventDefault();
 
-        const newDude =  {
-            id: 99,
-            who: this.state.dude,
-            what: this.state.dude,
-            cool: 15
-        };
+         console.log(event.key);
 
-        // Naplnenie pola bez push()
+         alert(this.state.dude);
 
-        alert(this.state.dude);
+         const newDude =  {
+             id: 99,
+             who: this.state.dude,
+             what: this.state.dude,
+             cool: 15
+         };
+ 
+          console.log([
+              ...this.state.characters,
+              newDude
+          ]);
+ 
+         // Naplnenie pola bez push()
+         // Vytvorm nove pole v ktorom bude vsetko co obsahovalo stare pole plus nova polozka
+           this.setState(
+                 {
+                     characters: [...this.state.characters,newDude]
+                 }
+           );
      }
 
 
@@ -86,7 +99,9 @@ class App extends React.Component {
                     {this.listOfDudes()}
                 </ul>
 
-                <form className="add-new" onSubmit={this.handleSubmit()}>
+                {/* !!! Pozor, taketo volanie metody nefunguje onSubmit={this.handleSubmit(event)} */}
+                {/* <form className="add-new" onSubmit={this.handleSubmit(event)}> */}
+                <form onSubmit={event => { this.handleSubmit(event) }} className="add-new">
                     <input type="text" 
                     value = {this.state.dude}
                     onChange={this.handleChange}></input>
