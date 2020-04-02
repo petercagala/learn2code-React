@@ -37,24 +37,56 @@ class App extends React.Component {
 
     }
 
+    /**
+     * Akoze listOfDudes component
+     */
+    listOfDudes = () => {
+        const dudeWhoList = this.state.characters.map(dude => (
+            <li key={dude.id} className={dude.who.split(' ').length < 3 ? "strong": ""}>
+                {dude.who}
+
+                {dude.who.split(' ').length < 3 && (
+                    <small>
+                        <strong> -lol , short name</strong>
+                    </small>
+                )} 
+            </li>
+        ));
+
+        return dudeWhoList;
+    }
+
+     handleSubmit = event => {
+        //  event.preventDefault();
+
+        const newDude =  {
+            id: 99,
+            who: this.state.dude,
+            what: this.state.dude,
+            cool: 15
+        };
+
+        // Naplnenie pola bez push()
+
+        alert(this.state.dude);
+     }
+
 
     /**
      * My template
      */
     render() {
-        const dudeWhoList = this.state.characters.map(dude => (
-            <li key={dude.id}>{dude.who}</li>
-        ))
+
 
 
         // Toto nieje HTMLAllCollection, ale JSX code
         return (
             <div>
                 <ul>
-                    {dudeWhoList}
+                    {this.listOfDudes()}
                 </ul>
 
-                <form className="add-new">
+                <form className="add-new" onSubmit={this.handleSubmit()}>
                     <input type="text" 
                     value = {this.state.dude}
                     onChange={this.handleChange}></input>
