@@ -8,8 +8,33 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            dude: 'Marceline the vampire'
+            dude: 'Marceline the vampire',
+            characters: [
+                {
+                    id: 1,
+                    who: 'Peter Cagala',
+                    what: 'Java Developer',
+                    cool: 12
+                },
+                {
+                    id: 2,
+                    who: 'Katarina Cagalova',
+                    what: 'Uctovnicka',
+                    cool: 56
+                }
+            ]
         };
+    }
+
+    // React sa vyziva v ES6: pouzi arrow function, budes mat pristup k this: arrow function si nevytvaraju v
+    // vlastny context pre this, teda v tomto pripade this sa bude odkazovat na cely komponent App
+    handleChange = event => {
+        //target:  Na ktorom elemente presne zmena nastala
+        console.log(event.target.value);
+        this.setState({
+            dude: event.target.value
+        });
+
     }
 
 
@@ -17,13 +42,26 @@ class App extends React.Component {
      * My template
      */
     render() {
+        const dudeWhoList = this.state.characters.map(dude => (
+            <li key={dude.id}>{dude.who}</li>
+        ))
+
+
         // Toto nieje HTMLAllCollection, ale JSX code
         return (
             <div>
-                <p>
-                     My good friend <strong>{this.state.dude}</strong>
-                     <br/>
-                     I like {this.state.dude}
+                <ul>
+                    {dudeWhoList}
+                </ul>
+
+                <form className="add-new">
+                    <input type="text" 
+                    value = {this.state.dude}
+                    onChange={this.handleChange}></input>
+                </form>
+
+                <p className="preview">
+                    {this.state.dude}
                 </p>
             </div>
         );
