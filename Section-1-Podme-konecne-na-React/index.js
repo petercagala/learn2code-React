@@ -75,13 +75,28 @@ class App extends React.Component {
               newDude
           ]);
  
+          // 1. SPOSOB (skratka sst)
          // Naplnenie pola bez push()
+         // ...spread operator krasne rozotrie vsetky svoje polozky
          // Vytvorm nove pole v ktorom bude vsetko co obsahovalo stare pole plus nova polozka
-           this.setState(
-                 {
-                     characters: [...this.state.characters,newDude]
-                 }
-           );
+        //    this.setState(
+        //          {
+        //              characters: [...this.state.characters,newDude]
+        //          }
+        //    );
+
+
+           // 2. SPOSOB (skratka ssf) -> BEZPECNEJSI, lebo mas aktualy stav state
+           // Pouzijem, ked nevytvara kompletne novu hodnotu characters, ale chcem pozit staru hodnotu
+           // Toto je lepsi sposob cez funkciu, pretoze state v sebe obsahuje aktualnu momentalnu hodnotu stavu
+           // teda objekt ...this.state.characters moze fungovat
+           // funkcia ...state.characters bude fungovat
+           this.setState((state) => { 
+               return {
+                characters: [...state.characters, newDude]
+                }
+            })
+           
      }
 
 
