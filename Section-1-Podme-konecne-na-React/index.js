@@ -47,19 +47,47 @@ class App extends React.Component {
     }
 
     /**
+     * Budem mat pristup k dude aj k event
+     */
+    handleCool = dude => event => {
+        const cool = +event.target.value;
+        this.setState((state) => {
+             return {
+                 // {...dudeItem, cool} : Pridanie noveho objektu tak, ze dudeItem sa koplet roztiahne a nahradi sa cool za novy cool
+                characters: state.characters.map(dudeItem => dudeItem === dude ? {...dudeItem, cool} : dudeItem)
+               }
+            }
+        )
+        
+    }
+
+    removeDude = dude => {
+        alert(dude.who);
+        this.setState((state, props) => {
+             return {
+                 characters: state.characters.filter(dudeItem => dudeItem !== dude)
+               }
+        })
+        
+    }
+
+    /**
      * Akoze listOfDudes component
      */
     listOfDudes = () => {
         const dudeWhoList = this.state.characters.map(dude => (
             <li key={dude.id}  className="dude">
-                <a className="ctrl">x</a>
+                <a className="ctrl" onClick={() => this.removeDude(dude)}>x</a>
 
                 <article className={dude.cool < 10 ? 'faded': dude.cool > 50 ? 'gold': ''}>
                      {dude.who}
                     <span>{dude.what}</span>
                 </article> 
 
-                <input type="number" className="ctrl" value={dude.cool}></input>
+                <input type="number" 
+                className="ctrl" 
+                value={dude.cool} 
+                onChange={this.handleCool(dude)}></input>
 
 
             </li>
@@ -73,7 +101,7 @@ class App extends React.Component {
 
          console.log(event.key);
 
-        if(event.key === 'Enter') {
+        if(event.key === 'Enter' && this.state.newWho && this.state.newWhat) {
                     //  alert(this.state.dude);
  
           // 1. SPOSOB (skratka sst)
