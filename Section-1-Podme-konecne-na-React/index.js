@@ -61,19 +61,7 @@ class App extends React.Component {
 
          console.log(event.key);
 
-         alert(this.state.dude);
-
-         const newDude =  {
-             id: 99,
-             who: this.state.dude,
-             what: this.state.dude,
-             cool: 15
-         };
- 
-          console.log([
-              ...this.state.characters,
-              newDude
-          ]);
+        //  alert(this.state.dude);
  
           // 1. SPOSOB (skratka sst)
          // Naplnenie pola bez push()
@@ -92,6 +80,23 @@ class App extends React.Component {
            // teda objekt ...this.state.characters moze fungovat
            // funkcia ...state.characters bude fungovat
            this.setState((state) => { 
+
+            // Vytiahnu maxId z listov vsetkych dudov
+            let maxId = Math.max(...state.characters.map(dudeItem => dudeItem.id));
+
+            let newDude =  {
+                id: maxId + 1,
+                who: this.state.dude,
+                what: this.state.dude,
+                cool: 15
+            };
+
+            console.log([
+                ...this.state.characters,
+                newDude
+            ]);
+
+
                return {
                 characters: [...state.characters, newDude]
                 }
