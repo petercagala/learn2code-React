@@ -7,9 +7,13 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        // Nastavenie referencie
+        this.input = React.createRef();
+
         this.state = {
             newWho: 'Milan Veroni',
             newWhat: 'huslista',
+            // characters: []
             characters: [
                 {
                     id: 1,
@@ -137,16 +141,38 @@ class App extends React.Component {
                 newDude
             ]);
 
-
+            
+            this.resetForm();
                
             return {
-                characters: [...state.characters, newDude],
-                newWho: '',
-                newWhat: ''
+                characters: [...state.characters, newDude]
                 }
             })
         }
            
+     }
+
+
+     resetForm = () => {
+         this.setState((state) => { 
+             return { 
+                newWhat: '',
+                newWho: ''
+          }})
+         this.input.current.focus();
+     }
+
+     /**
+      * LIVE-CYCLE metoda
+      * spusti sa, ked sa komponent prisrobuje do DOMU
+      * ReactDOM.render(<App/>, document.getElementById("root"));
+      */
+     componentDidMount = () => {
+        console.log("My component is mounted");
+
+        fetch('https://api.myjson.com/bins/zg7ze')
+            .then(res => res.json())
+            .then(json => this.setState({ characters: json }));
      }
 
 
@@ -168,6 +194,9 @@ class App extends React.Component {
                 {/* <form className="add-new" onSubmit={this.handleSubmit(event)}> */}
                 <form onKeyPress ={event => { this.handleKeyPress(event) }} className="add-new">
                     newWho: <input type="text" 
+                    autoFocus 
+                    // do atributu this.input ukladam odkaz na tento input element
+                    ref={this.input} 
                     value = {this.state.newWho}
                     onChange={this.handleNewWho}></input>
 
