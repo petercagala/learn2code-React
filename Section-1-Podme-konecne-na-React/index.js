@@ -8,19 +8,20 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            dude: 'Marceline the vampire',
+            newWho: 'Milan Veroni',
+            newWhat: 'huslista',
             characters: [
                 {
                     id: 1,
                     who: 'Peter Cagala',
                     what: 'Java Developer',
-                    cool: 12
+                    cool: 8
                 },
                 {
                     id: 2,
                     who: 'Katarina Cagalova',
                     what: 'Uctovnicka',
-                    cool: 56
+                    cool: 48
                 }
             ]
         };
@@ -28,11 +29,19 @@ class App extends React.Component {
 
     // React sa vyziva v ES6: pouzi arrow function, budes mat pristup k this: arrow function si nevytvaraju v
     // vlastny context pre this, teda v tomto pripade this sa bude odkazovat na cely komponent App
-    handleChange = event => {
+    handleNewWho = event => {
         //target:  Na ktorom elemente presne zmena nastala
         console.log(event.target.value);
         this.setState({
-            dude: event.target.value
+            newWho: event.target.value
+        });
+
+    }
+
+    handleNewWhat = event => {
+        console.log(event.target.value);
+        this.setState({
+            newWhat: event.target.value
         });
 
     }
@@ -42,26 +51,30 @@ class App extends React.Component {
      */
     listOfDudes = () => {
         const dudeWhoList = this.state.characters.map(dude => (
-            <li key={dude.id} className={dude.who.split(' ').length < 3 ? "strong": ""}>
-                {dude.who}
+            <li key={dude.id}  className="dude">
+                <a className="ctrl">x</a>
 
-                {dude.who.split(' ').length < 3 && (
-                    <small>
-                        <strong> -lol , short name</strong>
-                    </small>
-                )} 
+                <article className={dude.cool < 10 ? 'faded': dude.cool > 50 ? 'gold': ''}>
+                     {dude.who}
+                    <span>{dude.what}</span>
+                </article> 
+
+                <input type="number" className="ctrl" value={dude.cool}></input>
+
+
             </li>
         ));
 
         return dudeWhoList;
     }
 
-     handleSubmit = event => {
-         event.preventDefault();
+     handleKeyPress = event => {
+        //  event.preventDefault();
 
          console.log(event.key);
 
-        //  alert(this.state.dude);
+        if(event.key === 'Enter') {
+                    //  alert(this.state.dude);
  
           // 1. SPOSOB (skratka sst)
          // Naplnenie pola bez push()
@@ -86,9 +99,9 @@ class App extends React.Component {
 
             let newDude =  {
                 id: maxId + 1,
-                who: this.state.dude,
-                what: this.state.dude,
-                cool: 15
+                who: this.state.newWho,
+                what: this.state.newWhat,
+                cool: 51
             };
 
             console.log([
@@ -97,10 +110,14 @@ class App extends React.Component {
             ]);
 
 
-               return {
-                characters: [...state.characters, newDude]
+               
+            return {
+                characters: [...state.characters, newDude],
+                newWho: '',
+                newWhat: ''
                 }
             })
+        }
            
      }
 
@@ -121,10 +138,14 @@ class App extends React.Component {
 
                 {/* !!! Pozor, taketo volanie metody nefunguje onSubmit={this.handleSubmit(event)} */}
                 {/* <form className="add-new" onSubmit={this.handleSubmit(event)}> */}
-                <form onSubmit={event => { this.handleSubmit(event) }} className="add-new">
-                    <input type="text" 
-                    value = {this.state.dude}
-                    onChange={this.handleChange}></input>
+                <form onKeyPress ={event => { this.handleKeyPress(event) }} className="add-new">
+                    newWho: <input type="text" 
+                    value = {this.state.newWho}
+                    onChange={this.handleNewWho}></input>
+
+                    newWhat: <input type="text" 
+                    value = {this.state.newWhat}
+                    onChange={this.handleNewWhat}></input>
                 </form>
 
                 <p className="preview">
