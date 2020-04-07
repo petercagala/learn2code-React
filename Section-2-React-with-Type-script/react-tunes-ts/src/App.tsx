@@ -1,7 +1,17 @@
 import React from 'react';
+
+// styles, assets
 import logo from './img/logo.svg';
 import './App.scss';
+
+// component
 import { Switch, Link, NavLink, Route } from 'react-router-dom';
+import TheNavigation from "./components/TheNavigation";
+
+// views
+import Home from "./views/Home";
+import Tunes from "./views/Tunes";
+import About from "./views/About";
 
 function App() {
   return (
@@ -11,9 +21,7 @@ function App() {
       NavLink: pridava class="active", ak sme na vygenerovanej podstranke
       */}
         <nav>
-          <NavLink to='/' exact>Home Page</NavLink>
-          <NavLink to='/tunes'>Tunes</NavLink>
-          <NavLink to='/about'>About</NavLink>
+          <TheNavigation/>
         </nav>
       </header>
 
@@ -26,20 +34,9 @@ function App() {
       ak v adrese chcem zachytit aj nieco ine, ako znenie adresy, nepouzi exact
       */}
         <Switch>
-           <Route path="/" render={() => <h1>Home page</h1>} exact></Route>
-            <Route path="/tunes" render={() => (
-                <div>
-                  <p>
-                      <Link to="/">Go Home</Link>
-                  </p>
-                  <p>
-                    <a href="/">Go home with refresh: a  element</a>
-                  </p>
-                  <h1>Tunes</h1>
-                </div>
-            )
-            }></Route>
-          <Route path="/about" render={() => <h1>About</h1>}></Route>
+           <Route path="/" component={Home} exact></Route>
+            <Route path="/tunes" component={Tunes}></Route>
+          <Route path="/about" component={About}></Route>
         </Switch>
       </main>
 
