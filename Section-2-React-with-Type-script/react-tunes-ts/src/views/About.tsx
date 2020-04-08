@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 // styles
 import  './About.scss';
@@ -9,6 +9,7 @@ interface Props {
 
 // component
 const About: React.FC<Props> = () => {
+
     return (
         <div>
             <h2>About Page</h2>

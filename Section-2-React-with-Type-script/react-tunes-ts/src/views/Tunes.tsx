@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 interface Props {
 
@@ -8,6 +8,7 @@ interface Props {
  * 
  */
 const Tunes: React.FC<Props>= () => {
+
     return (
         <div>
             <h2>
