@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 // styles
 import './Home.scss';
@@ -14,15 +14,13 @@ interface Props {
  * 
  */
 const Home: React.FC<Props> = () => {
+    // HOOKS: pozitie reactivnych metod aj vo koponentoch vyrobenych cez funkciu
     // useState() vracia premennu "title" a funkciu "setTitle", ktora nastavi premennu "title"
     // funkcia "setTitle" je vlastne specianlna funkcia setState, ale len pre title
+    // !!! useState() musi byt uplne hore v ramci komponentu, nesmie byt v podmienke
     const [title, setTitle] = useState("React whee");
     const [count, setCount] = useState(1);
-    const [oldTitle, setOldTitle] = useState(document.title);
 
-    useEffect(() => {
-        document.title = title;
-    });
 
     return (
 		<div className="home">
