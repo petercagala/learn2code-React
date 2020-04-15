@@ -5,10 +5,11 @@ import './TunesSearchForm.scss';
 
 
 interface Props {
-
+    // onSearchFormSubmit je funkcia, ktora ma vstupny parameter data typu string a neviacia nic
+    onSearchFormSubmit: (data: string) => void;
 }
 
-const TunesSearchForm: React.FC<Props> = () => {
+const TunesSearchForm: React.FC<Props> = (props) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     // inputElement
@@ -20,7 +21,8 @@ const TunesSearchForm: React.FC<Props> = () => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        alert(searchQuery);
+        props.onSearchFormSubmit(searchQuery);
+
 
         // const newSong = {
         //     id: Math.max(...songs.map(song => song.id)) + 1,

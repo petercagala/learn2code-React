@@ -15,12 +15,20 @@ interface Props {
  * component
  */
 const Tunes: React.FC<Props>= () => {
+    const [title, setTitle] = useState('Tunes');
+
+
+    const handleSearchFormSubmit = (data: string) => {
+        // Dieta zmenilo stav rodicovi, ale nepriamo. Rodic sam zmenil svoj stav, cez handleSearchFormSubmit,
+        // ktoru ale uz zavolalo dieta
+        setTitle(data);
+    };
 
     // template
     return (
         <article className="tunes">
-            <h1>Tunes page</h1>
-            <TunesSearchForm/>
+            <h1>Tunes page: {title}</h1>
+            <TunesSearchForm onSearchFormSubmit={handleSearchFormSubmit}/>
             <TunesList/>
         </article>
     );
