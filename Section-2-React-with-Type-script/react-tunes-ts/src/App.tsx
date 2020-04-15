@@ -21,7 +21,7 @@ function App() {
       NavLink: pridava class="active", ak sme na vygenerovanej podstranke
       */}
         <nav>
-          <TheNavigation brand="main" howMany={56}/>
+          <TheNavigation/>
         </nav>
       </header>
 
@@ -39,11 +39,6 @@ function App() {
           <Route path="/about" component={About}></Route>
         </Switch>
       </main>
-
-      <footer>
-        <TheNavigation brand="footerBrand" howMany={45}/>
-      </footer>
-
     </div>
   );
 }
