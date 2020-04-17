@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Song} from '../../types/index';
 
 import './TunesList.scss';
 
@@ -7,12 +8,15 @@ import './TunesList.scss';
 
 interface Props {
     // songs: su pole takehoto datoveho typu
-    songs: {id: number, artist: string, name: string}[];
+    songs: Song[];
 }
 
 const TunesList: React.FC<Props> = (props) => {
     // Rozlozenie props na konstanty
     const {songs} = props;
+
+    // Cize mam krasne definovany, exportovany, importovany aj deklarovany datovy typ a aj inicializovany
+    let song: Song = {id: 1, artist: "PEter", name: "Cagala"};
 
     return (
         <ul className="tunes-list">
