@@ -2,35 +2,24 @@ import React, {useState} from 'react';
 
 import './TunesList.scss';
 
-interface Props {
+// TunesList je vseobecny zobrazovac dat. Zobrazi cookolvek mu rodic posle, ale na to potrebuje
+// naplnit svoje props od rodica
 
+interface Props {
+    // songs: su pole takehoto datoveho typu
+    songs: {id: number, artist: string, name: string}[];
 }
 
-const TunesList: React.FC<Props> = () => {
-    const [songs, setSongs] = useState([
-        {
-            id: 1,
-            artist: 'Palo Habera',
-            name: 'Ak nie si moja'
-        },
-        {
-            id: 2,
-            artist: 'Richard Muller',
-            name: 'do cista'
-        },
-        {
-            id: 3,
-            artist: 'Jana Kirschner',
-            name: 'Liska'
-        }
-    ]);
+const TunesList: React.FC<Props> = (props) => {
+    // Rozlozenie props na konstanty
+    const {songs} = props;
 
     return (
         <ul className="tunes-list">
             {
-                // songs.map(song => (
-                // <li key={song.id}>{song.artist + '  -  ' + song.name}</li>
-                // ))
+                songs.map(song => (
+                <li key={song.id}>{song.artist + '  -  ' + song.name}</li>
+                ))
            }
         </ul>
     );
