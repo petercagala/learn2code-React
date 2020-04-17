@@ -28,6 +28,7 @@ const Tunes: React.FC<Props>= () => {
     return (
         <article className="tunes">
             <h1>Tunes page: {title}</h1>
+            {/* Ked nastane  udalost v dietati onSearchFormSubmit, postara sa o tuto udalost metoda  handleSearchFormSubmit*/}
             <TunesSearchForm onSearchFormSubmit={handleSearchFormSubmit}/>
             <TunesList/>
         </article>
