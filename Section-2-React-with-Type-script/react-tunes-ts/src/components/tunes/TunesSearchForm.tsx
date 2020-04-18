@@ -1,37 +1,41 @@
-import React, {useState, ChangeEvent, FormEvent} from 'react';
+import React, {useState, ChangeEvent, FormEvent, useRef} from 'react';
 
 import './TunesSearchForm.scss';
 
 
 
 interface Props {
-    // onSearchFormSubmit je funkcia, ktora ma vstupny parameter data typu string a neviacia nic
-    onSearchFormSubmit: (data: string) => void;
-    searchQuery: string;
-    onInputChange: (data: string) => void;
 }
 
 const TunesSearchForm: React.FC<Props> = (props) => {
-    const {onSearchFormSubmit, searchQuery, onInputChange} = props;
+    // Ide o to, aby sme nemuseli naplnat state rodica a pinpongovat sa uplne zbytocne medzi rodicom a dietatom
+    // Zadefinuj si tiez, na aky typ odkazu si robis odkaz: useRef<HTMLInputElement>
+    const searchInput = useRef<HTMLInputElement>(null);
 
     // inputElement
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        // setSearchQuery(e.target.value);
-        onInputChange(e.target.value);
+        searchFotMusic();
     };
 
     // submit form
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        onSearchFormSubmit(searchQuery);
+        searchFotMusic();
     }
+
+    // search for music
+    const searchFotMusic = () => {
+        // 
+        console.log(searchInput.current?.value);
+    };
 
     return (
         <div>
              <form onSubmit={handleSubmit}>
                  <input type="text" 
-                 value={searchQuery} 
+                 autoFocus
+                 ref={searchInput}
                  onChange={handleInput} 
                  className="search"></input>
              </form>

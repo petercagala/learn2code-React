@@ -17,47 +17,17 @@ interface Props {
 const Tunes: React.FC<Props>= () => {
     const [title, setTitle] = useState('Tunes');
 
-    const [songs, setSongs] = useState([
-        {
-            id: 1,
-            artist: 'Palo Habera',
-            name: 'Ak nie si moja'
-        },
-        {
-            id: 2,
-            artist: 'Richard Muller',
-            name: 'do cista'
-        },
-        {
-            id: 3,
-            artist: 'Jana Kirschner',
-            name: 'Liska'
-        }
-    ]);
-
-    const [searchQuery, setSearchQuery] = useState('');
+    const [songs, setSongs] = useState([]);
 
 
     const handleSearchFormSubmit = (dataSearch: string) => {
-        // Dieta zmenilo stav rodicovi, ale nepriamo. Rodic sam zmenil svoj stav, cez handleSearchFormSubmit,
-        // ktoru ale uz zavolalo dieta
-        setTitle(dataSearch);
-
-        const newSong = {
-            id: Math.max(...songs.map(song => song.id)) + 1,
-            artist: dataSearch,
-            name: dataSearch
-        };
+        // Budem tahat songy z itunes
 
         setSongs([
-            ...songs,
-            newSong
+
         ]);
     };
 
-    const handleInputChange = (dataInput: string) => {
-        setSearchQuery(dataInput);
-    }
 
     // template
     return (
@@ -65,9 +35,7 @@ const Tunes: React.FC<Props>= () => {
             <h1>Tunes page: {title}</h1>
             {/* Ked nastane  udalost v dietati onSearchFormSubmit, postara sa o tuto udalost metoda  handleSearchFormSubmit*/}
             <TunesSearchForm 
-                searchQuery = {searchQuery} 
-                onInputChange = {handleInputChange}
-                onSearchFormSubmit={handleSearchFormSubmit}/>
+            />
             <TunesList songs={songs}/>
         </article>
     );
