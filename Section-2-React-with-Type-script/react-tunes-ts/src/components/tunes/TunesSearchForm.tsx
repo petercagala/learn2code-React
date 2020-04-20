@@ -1,10 +1,12 @@
-import React, {useState, ChangeEvent, FormEvent, useRef} from 'react';
+import React, { ChangeEvent, FormEvent, useRef} from 'react';
+import {debounce} from 'lodash-es';
 
 import './TunesSearchForm.scss';
 
 
 
 interface Props {
+    onSearch: (query: string) => void;
 }
 
 const TunesSearchForm: React.FC<Props> = (props) => {
@@ -13,9 +15,12 @@ const TunesSearchForm: React.FC<Props> = (props) => {
     const searchInput = useRef<HTMLInputElement>(null);
 
     // inputElement
-    const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
-        searchFotMusic();
-    };
+    // funkcia musi cakat 500ms na to aby sa odpalila
+    const handleInput = debounce(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            searchFotMusic();
+        }
+    , 1500);
 
     // submit form
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -26,8 +31,12 @@ const TunesSearchForm: React.FC<Props> = (props) => {
 
     // search for music
     const searchFotMusic = () => {
-        // 
         console.log(searchInput.current?.value);
+
+        let searchQuery= searchInput.current?.value;
+        if(searchQuery) {
+            props.onSearch(searchQuery);
+        } 
     };
 
     return (

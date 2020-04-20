@@ -1,11 +1,10 @@
 import React from 'react';
 
 // styles, assets
-import logo from './img/logo.svg';
 import './App.scss';
 
 // component
-import { Switch, Link, NavLink, Route } from 'react-router-dom';
+import { Switch,  Route } from 'react-router-dom';
 import TheNavigation from "./components/TheNavigation";
 
 // views
