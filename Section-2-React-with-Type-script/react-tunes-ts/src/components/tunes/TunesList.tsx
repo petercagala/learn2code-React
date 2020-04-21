@@ -16,13 +16,19 @@ const TunesList: React.FC<Props> = (props) => {
     const {songs} = props;
 
     // Cize mam krasne definovany, exportovany, importovany aj deklarovany datovy typ a aj inicializovany
-    let song: Song = {id: 1, artist: "PEter", name: "Cagala"};
+    let song: Song = {
+        id: 1, 
+        artist: "Peter", 
+        album: "nejaky album",
+        audioFile: "url cesta k file",
+        title: "Title k nejakej piesni"
+    };
 
     return (
         <ul className="tunes-list">
             {
-                songs.map(song => (
-                <li key={song.id}>{song.artist + '  -  ' + song.name}</li>
+                songs.map((song: Song) => (
+                <li key={song.id}>{song.artist + '  -  ' + song.album}</li>
                 ))
            }
         </ul>
