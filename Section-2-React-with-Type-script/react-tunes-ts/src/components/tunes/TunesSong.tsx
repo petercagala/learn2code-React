@@ -44,10 +44,10 @@ const TunesSong: React.FC<Props> = (props) => {
     // tento vedlajsi efekt nech sa spusti iba vtedy, ked sa zmeni tato vedlajsia hodnota
     // FINTA!!!! [] -> tento efekt nezavisi od ziadnej hodnoty, preto neexistuje ziaden dovod, preco by sa mal spostit znova. Spusti
     // sa iba raz pri prvom zobrazeni a potom sa uz nespusti
-    useEffect(() => {
-        alert("side effect, biatch!!!");
-    },
-    [])
+    // useEffect(() => {
+    //     alert("side effect, biatch!!!");
+    // },
+    // [])
 
     return (
         <article className="song">
