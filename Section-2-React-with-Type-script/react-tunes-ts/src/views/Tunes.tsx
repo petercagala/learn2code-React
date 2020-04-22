@@ -43,9 +43,7 @@ const Tunes: React.FC<Props>= () => {
 
             console.log(itunesSongs);
 
-            // setSongs([
-            //     response.data.results
-            // ]);
+            setSongs(itunesSongs);
         });
 
 

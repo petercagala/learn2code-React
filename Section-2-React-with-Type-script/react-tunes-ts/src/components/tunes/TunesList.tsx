@@ -1,6 +1,8 @@
 import React from 'react';
 import {Song} from '../../types/index';
 
+import TunesSong from "./TunesSong";
+
 import './TunesList.scss';
 
 // TunesList je vseobecny zobrazovac dat. Zobrazi cookolvek mu rodic posle, ale na to potrebuje
@@ -28,7 +30,9 @@ const TunesList: React.FC<Props> = (props) => {
         <ul className="tunes-list">
             {
                 songs.map((song: Song) => (
-                <li key={song.id}>{song.artist + '  -  ' + song.album}</li>
+                    <li key={song.id}>
+                        <TunesSong song={song}></TunesSong>
+                    </li>
                 ))
            }
         </ul>
